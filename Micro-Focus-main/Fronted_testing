@@ -1,0 +1,18 @@
+from selenium import webdriver
+import pymysql
+
+
+
+driver = webdriver.Chrome("https://github.com/photop33/Micro-Focus/blob/main/chromedriver.exe")
+driver.get("http://localhost:5500/user/" + user_id + "")
+x=driver.find_element('/html/body/pre')
+print(x.text)
+
+
+
+conn = pymysql.connect(host='remotemysql.com', port=3306, user='Q2PbjAC1nT', passwd='WRYn22HLYY', db='Q2PbjAC1nT')
+cursor = conn.cursor()
+cursor.execute("SELECT name FROM Q2PbjAC1nT.users;")
+for row in cursor:
+    if user_name == row[0]:
+        print('An ',row[0],' exists in the system')
