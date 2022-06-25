@@ -1,6 +1,6 @@
 import pymysql
+import requests
 from flask import request
-from Backend_test import test
 
 
 
@@ -8,10 +8,9 @@ def Create_Table():
     conn = pymysql.connect(host='remotemysql.com', port=3306, user='AFKTvDpMGV', passwd='MXSpb3808w', db='AFKTvDpMGV')
     cursor = conn.cursor()
     conn.autocommit(True)
-    name_table = "user"
-    cursor.execute(
-        "CREATE TABLE `AFKTvDpMGV`.`" + name_table + "` (`ID` INT UNSIGNED NOT NULL,`name` VARCHAR(50) NOT NULL,`time_column_datetime` VARCHAR(50) NOT NULL)")
-    print("Ready table " + name_table + "")
+    name_table="user"
+    cursor.execute("CREATE TABLE `AFKTvDpMGV`.`"+ name_table +"` (`ID` INT UNSIGNED NOT NULL,`name` VARCHAR(50) NOT NULL,""`time_column`datetime (`ID`))")
+    print("Ready table "+ name_table +"")
     cursor.close()
     conn.close()
 
@@ -31,8 +30,11 @@ def GET(user_id):
             return user_name
     cursor.close()
     conn.close()
-
+X=GET(5)
+print(X)
 users = {}
+
+
 
 
 def POST(user_id) :
@@ -52,26 +54,34 @@ def POST(user_id) :
     return user_name
 
 
+# def user(user_id):
+#     if request.method == 'POST':
+#         try:
+#             from db_connector import POST
+#             user_name = POST(user_id)
+#             return {'user id': user_id, 'user added': user_name, 'status': 'ok'}, 200  # status code
+#         except:
+#             return {"status": "error", "reason": "idal ready exists"}, 500
+#
+# user_id='5'
+# user(user_id)
+
+
 
 
 users = {}
-
-
 def update_user(user_id):
     request_data = request.json
     request_data.get('user_name')
     user_name = request_data.get('user_name')
     users[user_id] = user_name
-    conn = pymysql.connect(host='remotemysql.com', port=3306, user='xiDsE9WxzQ', passwd='oPWyaB1d82', db='xiDsE9WxzQ')
+    conn = pymysql.connect(host='remotemysql.com', port=3306, user='xiDsE9WxzQ', passwd='FL1Sk29yLg', db='xiDsE9WxzQ')
     conn.autocommit(True)
     cursor = conn.cursor()
     cursor.execute("UPDATE xiDsE9WxzQ.users SET name = '" + user_name + "'  WHERE user_id=" + user_id + "")
     cursor.close()
     conn.close()
-    print("success update_user")
-
     return user_name
-
 
 def DELETE(user_id):
     conn = pymysql.connect(host='remotemysql.com', port=3306, user='xiDsE9WxzQ', passwd='FL1Sk29yLg', db='xiDsE9WxzQ')
@@ -88,3 +98,5 @@ def DELETE(user_id):
     cursor.close()
     conn.close()
     return user_name
+
+
