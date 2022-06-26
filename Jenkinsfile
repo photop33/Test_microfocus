@@ -9,6 +9,7 @@ pipeline {
         stage('properties') {
             steps {
                 script {
+		    bat 'sudo chown -R $USER: .'
                     properties([pipelineTriggers([pollSCM('*/30 * * * *')])])
                     properties([buildDiscarder(logRotator(daysToKeepStr: '5', numToKeepStr: '20')),])
                 }
